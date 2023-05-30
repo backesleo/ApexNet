@@ -1,4 +1,4 @@
-from Controller import saudacao, criarcliente, criarplano
+from Controller import saudacao, criarcliente, criarplano, Contratar
 
 def menu ():
     menu = 1
@@ -28,7 +28,7 @@ def menu ():
 
                 criarplano(plano)
             case 3:
-                pass
+                Contratar()
 
             case 4:
                 pass

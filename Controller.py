@@ -29,92 +29,52 @@ def criarplano(plano):
 
 
 def Contratar(contrato):
-    with open('clientes.txt','r') as arquivo:
-        lines = arquivo.readlines()
-        
+    clientes = []
+    planos = []
 
-        for line in lines:
+    cliente_find = input("Informe o nome do cliente\n>>")
+
+    with open('clientes.txt', 'r') as arquivo_clientes:
+        
+        for linha in arquivo_clientes:
             
-            if contrato == eval(line)["Nome"]:
+            cliente = eval(linha.strip()) 
+            clientes.append(cliente)
 
-                with open('Contratos.txt','a') as arquivo:
-                    arquivo.write(str(contrato) + '\n')
-            
-            else:
-                print("Cliente não encontrado")
+    cliente_encontrado = None
+    for cliente in clientes:
+        if cliente['Nome'] == cliente_find:
+            cliente_encontrado = cliente
+            break
 
-
-
+    if cliente_encontrado == None:
+        print("Cliente não encontrado!")
+        return
     
+
+    plano_velocidade = int(input("Informe a velocidade do plano\n>>"))
+
+    with open('planos.txt', 'r')as arquivo_planos:
         
+        for linha in arquivo_planos:
+            plano = eval(linha.strip())
+            planos.append(plano)
 
-        
+    plano_encontrado = None
+    for plano in planos:
+        if plano['Download'] == plano_velocidade:
+            plano_encontrado = plano
+            break
 
-"""def Contratar():
-    menu = 1
+    if plano_encontrado == None:
+        print("Plano não encontrado!")
+        return
 
-    while menu != 0:
+    with open('Contratos.txt', 'a') as arquivo_contratos:
+            contrato = {
+                'nome': cliente_encontrado['Nome'],
+                'plano': plano_encontrado['Download']
+            }
+            arquivo_contratos.write(str(contrato) + '\n')
 
-        var = int(input("Digite:\n1 para escolher o cliente\n2 para escolher o plano\n>>"))
-
-        match var:
-
-            case 1:
-                with open('clientes.txt', 'r') as arquivo:
-                
-                    for line in arquivo:
-                    
-                        cliente = input("Digite o nome do Cliente\n>>")
-                        if cliente == eval(line)["Nome"] in arquivo:
-
-                            with open('Contratos.txt','a') as arquivo:
-                                arquivo.write(str(cliente) + '\n')
-                arquivo.close()
-                return var
-                
-                
-
-            case 2:
-                with open('planos.txt', 'r') as arquivo:
-                
-                    for line in arquivo:
-                    
-                        plano = input("Digite o Plano\n>>")
-                        if cliente == eval(line)["Download"] in arquivo:
-
-                            with open('Contratos.txt','a') as arquivo:
-                                arquivo.write(str(plano) + '\n')
-                arquivo.close()
-
-        menu = int(input("Digite 0 para encerrar"))"""
-
-    
-    
-
-"""
-def Contratar():
-    for line in arquivo:
-        index +=1
-
-        if Cliente == eval(line)["Nome"] and Plano == eval(line)["Download"]:
-            index = 1
-            flag = 1
-
-        arquivo.close()
-
-    if flag == 0:
-        print("Cliente não encontrado")
-
-    else:
-
-        try:
-            with open('clientes.txt','planos.txt' 'r') as arquivo:
-                arquivo.readlines()
-                
-
-                with open('Contratos.txt', 'a') as arquivo:
-                    arquivo.write(str(Cliente, Plano) + '\n')
-                    print("Plano contratado com sucesso!!")
-
-        except: 
-            print("Erro no sistema")"""
+    print("Contrato gerado com sucesso!")
