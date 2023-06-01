@@ -1,1 +1,0 @@
-{'Download': 100, 'Upload': 50, 'Valor': 99.9}
